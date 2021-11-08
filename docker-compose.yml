@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  primary:
+    build: primary/
+    ports:
+      - "5000:5000"
+    command: python ./app.py
+    networks:
+      - secondary1_net
+      - secondary2_net
+  secondary1:
+    build: secondary1/
+    ports:
+      - "6000:6000"
+    command: python ./app1.py
+    networks:
+      - secondary1_net
+  secondary2:
+    build: secondary2/
+    ports:
+      - "7000:7000"
+    command: python ./app2.py
+    networks:
+      - secondary2_net
+networks:
+  secondary1_net:
+    driver: bridge
+  secondary2_net:
+    driver: bridge
